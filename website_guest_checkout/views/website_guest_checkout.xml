@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		
+
+
+		<template id="website_guest_checkout_assets_frontend" name="website guest checkout assets frontend" inherit_id="website.assets_frontend">
+			<xpath expr="." position="inside">			
+		        <script type="text/javascript" src="/website_guest_checkout/static/src/js/website_guest_checkout.js"></script>			
+		    
+		    </xpath>
+		</template>
+
+
+		<template id="website_guest_checkout_template" name="website guest checkout template" inherit_id="website_sale.cart">
+			<xpath expr="//a[@class='btn btn-primary pull-right mb32']" position="replace" >
+			
+		       <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" id="pk_checkout" t-attf-data-uid="#{website.get_uid()}" t-attf-data-p_uid="#{website.get_public_user_id()}"   ><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
+				 <input type='hidden' name='wk_database' id="wk_database" t-att-value='request.db'/>
+				 <input type="hidden" name="allow_signup" id="allow_signup"/>
+		       
+		    </xpath>
+		</template>
+		
+
+
+	
+
+
+
+	</data>
+</openerp>
