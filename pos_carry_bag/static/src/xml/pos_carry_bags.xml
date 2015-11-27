@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+       
+<templates id="template" xml:space="preserve">
+    
+     <t t-name="CarryBagButtonWidget">
+         <div >
+            <button class='paypad-button button_style '>Carry Bag</button>                   
+        </div>
+    </t>
+    <t t-name="ProductPopupWidget">
+        <div class="modal-dialog custom-dialog">
+            <div class="popup popup-select-products" >
+                 <div class="product-header">
+                    <div class="product-heading">
+                    Bags list
+
+                    <div class=" button" id="customer-cance">
+                        CANCEL
+                    </div>
+                    </div>
+               </div>
+                <div class="product-data" >
+                    <span class="placeholder-CarryBagListScreenWidget" />
+                </div> 
+            </div>
+        </div>
+    </t>
+
+    
+
+
+
+    <t t-name="CarryBagListScreenWidget">
+        <div class="carry_bag_lis_class">
+            <ol  class="carry_bag_list">
+            </ol>
+        </div>
+    </t>
+
+
+
+<t t-name="CarryBagListWidget">
+      
+        <span class='product' t-att-data-product-id="widget.model.id">
+            <a href="#">
+            <div class="product-img">
+                <img t-att-src='widget.get_product_image_url(widget.model.id)' /> 
+                <t >
+                    <span class="price-tag">
+                        <t t-esc="widget.format_currency(widget.model.list_price,'Product Price')"/>
+                    </span>
+                </t>
+            </div>
+            <div class="product-name">
+                <t t-esc="widget.get_product_name(widget.model.id)"/>
+            </div>
+            </a>
+        </span>
+    
+    </t>
+
+
+
+</templates>
+
+    
