@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+       
+<templates id="template" xml:space="preserve">
+    
+<t t-extend="PaymentScreenWidget" >
+        <t t-jquery=".payment-screen .pos-payment-container .payment-info" t-operation="append"> 
+           <div class="infoline bigger" >
+                 
+                <span class='left-block'>
+                   
+                </span>
+                <textarea class="infoline bigger" id="wk_note_id"  style="width:330px; height:120px;" placeholder="POS Order note" ></textarea>
+              
+           </div>
+        </t>
+    </t>
+    <t t-extend="PosTicket" >
+        <t t-jquery=".pos-sale-ticket" t-operation="append"> 
+          <t t-if="widget.pos.config.print_note">
+           <table>
+
+                <tr><td>Note:</td><td class="pos-right-align">
+                   <t t-esc="order.get_order_note()"/>
+                    </td></tr>
+            </table>
+          </t>
+        </t>
+    </t>    
+</templates>
+
+    
