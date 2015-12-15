@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <template id="website_layout" name="Website Favicon" inherit_id="website.layout">
+            <xpath expr="//head//link" position="after">
+		        <link t-if="website.favicon" rel="shortcut icon" t-attf-href="/web/binary/image?model=website&amp;id=#{website.id}&amp;field=favicon&amp;" type="image/x-icon"/>
+		    </xpath>
+        </template>
+
+    </data>
+</openerp>
