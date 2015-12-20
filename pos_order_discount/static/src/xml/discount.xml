@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+     <t t-name="DiscountPopupWidget">
+        <div class="modal-dialog custom-dialog">
+            <div class="wk_discount_popup">
+                 <div class="wk_discount-header">
+                    <div class="wk_discount_header_content" >
+                    <span class="wk_discount_header_text">
+                    Discounts list
+                    </span>
+                    <span class="wk_discount_widget_cancel" id="wk_discount-cance">
+                        <img  src="/pos_order_discount/static/src/img/icon-cross.png" />
+                    </span>
+                    </div>
+               </div>
+                <div class="product-data" >
+                    <span class="placeholder-DiscountListScreenWidget" />
+                </div> 
+            </div>
+        </div>
+    </t>
+
+    <t t-name="DiscountWidget">
+      
+        <span class='product' t-att-data-product-id="widget.model.id">
+            <a href="#">
+            <div class="product-img">
+                <img t-att-src='widget.get_discount_image_url(widget.model.id)' />
+                <span class="price-tag" style="color:#555;background:none">
+                       <t t-esc="widget.model.name"/>
+                </span> 
+            </div>
+            <div class="product-name wk_discount_name">
+                 <t t-if="widget.model.short_description">
+                    <t t-esc="widget.model.short_description"/>
+                </t>
+            </div>
+            </a>
+        </span>
+    
+    </t>
+     <t t-name="DiscountScreenWidget">
+        <div class="discount_lis_class">
+            <ol  class="discount_list">
+            </ol>
+        </div>
+    </t>
+
+    
+   
+</templates>

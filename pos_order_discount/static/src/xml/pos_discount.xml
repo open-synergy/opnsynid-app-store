@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+     <t t-extend="PaymentScreenWidget" >
+        <t t-jquery=".payment-screen .pos-payment-container .payment-info" t-operation="append"> 
+           
+            <div class="infoline wk_discount_display discount_cancel">
+                <span class='left-block'>
+                Discount:
+                </span>
+                <span class="right-block discount-charge"></span><div style="margin-left:-22px;margin-top:-15px;display:flex;color:red" class="wk_discount_block"><img  src="/pos_order_discount/static/src/img/icon-cross1.png" /></div>
+            </div>
+            <div class="infoline wk_discount_display discount_cancel" >
+                <span class='left-block'>
+                  
+                </span>
+                <span class="right-block wk_discount-info" style="font-style: italic;font-size:12px;"></span>
+                
+            </div>
+        </t>
+    </t>
+    <t t-extend="PosTicket" >
+        <t t-jquery=".pos-sale-ticket table .emph" t-operation="replace"> 
+          <t t-if="order.wk_get_discount()">
+            <tr class="emph">
+                <td>Total:</td>
+                <td class="pos-right-align">
+                    <del><t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/></del>
+                </td>
+            </tr>
+            <tr>
+                <td>Global Discount:</td><td class="pos-right-align">
+                   <t t-esc="widget.format_currency(order.wk_get_discount())"/>
+                </td>
+            </tr>
+             <tr class="emph">
+                <td>Total:</td>
+                <td class="pos-right-align">
+                    <t t-esc="widget.format_currency(order.getTotalTaxIncluded()-order.wk_get_discount())"/>
+                </td>
+            </tr>
+            
+            
+          </t>
+          <t t-if="! order.wk_get_discount()">
+             <tr class="emph">
+                <td>Total:</td>
+                <td class="pos-right-align">
+                    <t t-esc="widget.format_currency(order.getTotalTaxIncluded())"/>
+                </td>
+            </tr>
+            
+          </t>
+        </t>
+
+    </t> 
+   
+
+</templates>

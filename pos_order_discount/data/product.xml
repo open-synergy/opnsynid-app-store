@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+
+		<record id="wk_loyalty_product_category_id" model="product.category">
+            <field name="name">Discount</field>
+        </record>
+
+		<record id="wk_loyalty_product_id" model="product.product">
+            <field name="name">Discount</field>
+            <field name="categ_id" ref="wk_loyalty_product_category_id"/>
+            <field name="list_price">0</field>
+            <field name="type">service</field>
+            <field name="list_price">0</field>
+            <field name="sale_ok">false</field>
+        </record>
+
+       
+		
+	</data>
+</openerp>
