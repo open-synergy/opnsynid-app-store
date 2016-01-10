@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+       
+<templates id="template" xml:space="preserve">
+    
+     <t t-extend="Product" >
+    	<t t-jquery=".product-img" t-operation="replace">
+        </t>
+    </t>
+    <t t-extend="Product" >
+        <t t-jquery=".product-name" t-operation="before">
+            <div class="product-img">
+            	<img t-att-src='image_url' /> 
+                <t t-if="!product.to_weight">
+                    <span class="price-tag">
+                        <t t-esc="widget.format_currency(product.price,'Product Price')"/>
+                    </span>
+                </t>
+                <t t-if="product.to_weight">
+                    <span class="price-tag">
+                        <t t-esc="widget.format_currency(product.price,'Product Price')+'/Kg'"/>
+                    </span>
+                </t>
+                <t t-if="widget.pos.config.wk_display_stock">
+                <span class="qty-tag" t-att-id="'qty-tag'+product.id">
+                        <t t-esc="widget.get_information(product.id)"/>
+                	   
+                </span>
+                </t>
+            </div>
+        </t>        
+    </t>
+</templates>
