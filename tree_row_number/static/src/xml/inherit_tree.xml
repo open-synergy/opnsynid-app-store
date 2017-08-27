@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <table t-extend="ListView">
+        <t t-jquery=".oe_list_header_columns" t-operation="replace">
+            <tr t-if="options.header" class="oe_list_header_columns">
+                <t t-foreach="columns" t-as="column">
+                    <th t-if="column.meta">
+                        <t t-esc="column.string"/>
+                    </th>
+                </t>
+                <th width="1">
+                    <p>No.</p>
+                </th>
+                <th t-if="options.selectable" width="1">
+                    <input type="checkbox" class="oe_list_record_selector"/>
+                </th>
+                <t t-foreach="columns" t-as="column">
+                    <th t-if="!column.meta and column.invisible !== '1'" t-att-data-id="column.id"
+                        t-attf-class="oe_list_header_#{column.widget or column.type} #{((options.sortable and column.tag !== 'button') ? 'oe_sortable' : null)}">
+                        <div>
+                            <t t-if="column.tag !== 'button'">
+                                <t t-esc="column.string"/>
+                            </t>
+                        </div>
+                    </th>
+                </t>
+                <th t-if="options.deletable" class="oe_list_record_delete" width="13px"/>
+            </tr>
+
+        </t>
+    </table>
+    <tr t-extend="ListView.row">
+        <t t-jquery=".oe_list_record_selector" t-operation="before">
+            <t t-if="index &amp;&amp; zika">
+                <t t-if="zika">
+                    <th width="1">
+                        <span t-esc="zika+1"/>
+                    </th>
+                </t>
+            </t>
+            <t t-if="index &amp;&amp; ! zika">
+                <t t-if="index">
+                    <th width="1">
+                        <span t-esc="index+1"/>
+                    </th>
+                </t>
+            </t>
+            <t t-if="! index &amp;&amp; zika">
+                <t t-if="zika">
+                    <th width="1">
+                        <span t-esc="zika+1"/>
+                    </th>
+                </t>
+            </t>
+            <t t-if="! index &amp;&amp; ! zika">
+                    <th width="1">
+                        <span t-esc="1"/>
+                    </th>
+            </t>
+        </t>
+    </tr>
+</templates>
