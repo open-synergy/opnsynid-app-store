@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="CustomPopup">
+         <div class="modal-dialog">
+            <div class="popup popup-note-structure" style="height: 251px;width: 339px;background-color: #ffffff;border-radius:10px;">
+                <t t-raw="widget.msg_show"/>
+                <div class="footer">
+                    <div class="button ok" style="color: black;">
+                        OK
+                    </div>
+                    <div class="button cancel" style="color: black;">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+         </div>
+    </t>
+
+</templates>
