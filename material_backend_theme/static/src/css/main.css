@@ -633,7 +633,7 @@ button.btn.oe_follower.oe_notfollow {
 }
 
 .openerp .oe_application .oe_form header .oe_button {
-    float: left;
+    float: none;
 }
 
 .openerp .oe_application .oe_form .oe_form_configuration header .oe_button {
