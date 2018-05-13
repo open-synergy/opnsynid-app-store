@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="im_chat.OnlineUsers">       
+        <div class="oe_im_user ui-draggable">   
+            <span class="oe_im_user_clip">
+                <img t-att-src="widget.get('image_url')" class="oe_im_user_avatar"/>
+            </span>
+            <span class="oe_im_user_name"><t t-esc="widget.get('name')"/></span>
+        </div>  
+    </t>
+
+    <t t-extend="im_chat.InstantMessaging">
+        <t t-jquery=".oe_im_users" t-operation="after">
+            <div class="group_lbl">Groups</div>
+            <div class="oe_im_groups"></div>
+        </t>
+    </t>
+</templates>

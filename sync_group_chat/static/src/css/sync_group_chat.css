@@ -1,0 +1,13 @@
+.oe_im_users{
+	height: 70% !important;
+}
+.oe_im_groups{
+	height: 20%;
+	overflow-y: scroll;
+	//margin-bottom: 2%;
+}
+.group_lbl{
+	font-weight: bold;
+	margin: 3px;
+	border-bottom: ghostwhite solid 1px;
+}

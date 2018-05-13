@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<template id="assets_backend" name="web_tests assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/sync_group_chat/static/src/js/sync_group_chat.js"></script>
+                <link rel='stylesheet' href='/sync_group_chat/static/src/css/sync_group_chat.css'/>
+            </xpath>
+        </template>
+    </data>
+</openerp>
