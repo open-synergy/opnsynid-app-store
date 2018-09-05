@@ -30,7 +30,7 @@ class RestAPI(http.Controller):
     
     @http.route([
         '/api/user/delete_token',
-    ], auth="public", website=True, methods=['GET'])
+    ], auth="public", website=True, methods=['GET'], cors="*")
     def delete_token(self, **post):
         """
             Delete token : it is medetory to pass token after this call token will be deleted.
@@ -49,7 +49,7 @@ class RestAPI(http.Controller):
     
     @http.route([
         '/api/user/refresh_token',
-    ], auth="public", website=True, methods=['GET'])
+    ], auth="public", website=True, methods=['GET'], cors="*")
     def refresh_token(self, **post):
         """
             Refresh token : it is medetory to pass token after this call token will return new token.
@@ -70,7 +70,7 @@ class RestAPI(http.Controller):
                 return json.dumps({'error': _(' %s' % e)})
                 
     @http.route(['/api/<string:model>/search', '/api/<string:model>/search/<int:id>'
-    ], type='http', auth="public")
+    ], type='http', auth="public", cors="*")
     def search_data(self, model=None, id=None, **post):
         """
             list records , it is medetory to pass model name
@@ -114,7 +114,7 @@ class RestAPI(http.Controller):
     
     
     @http.route(['/api/<string:model>/create'
-                 ], type='http', auth="public", csrf=False)
+                 ], type='http', auth="public", csrf=False, cors="*")
     def create_data(self, model=None, **post):
         """
             create record , it is medetory to pass model name
@@ -146,7 +146,7 @@ class RestAPI(http.Controller):
                 return json.dumps({'error': _('create_vals not found in query string')})
     
     @http.route(['/api/<string:model>/update','/api/<string:model>/update/<int:id>'
-                 ], type='http', auth="public", csrf=False)
+                 ], type='http', auth="public", csrf=False, cors="*")
     def update_data(self, model=None, id=None, **post):
         """
             update record , it is medetory to pass model name and record id
@@ -181,7 +181,7 @@ class RestAPI(http.Controller):
                 return json.dumps({'error': _('id not fount in query string')})
     
     @http.route(['/api/<string:model>/unlink/','/api/<string:model>/unlink/<int:id>'
-                 ], type='http', auth="public", csrf=False)
+                 ], type='http', auth="public", csrf=False, cors="*")
     def unlink_data(self, model=None, id=None, **post):
         """
             Delete record , it is medetory to pass model name and record id 
@@ -221,7 +221,7 @@ class RestAPI(http.Controller):
                         return json.dumps({'error': _(' %s' % e)})
     
     @http.route(['/api/<string:model>/<int:id>/method/<string:method_name>'
-                 ], type='http', auth="public")
+                 ], type='http', auth="public", cors="*")
     def method_call(self, model=None,id=None, method_name=None, **post):
         """
             For calling a method of any model , it is medetory to pass model name, record id and method name
