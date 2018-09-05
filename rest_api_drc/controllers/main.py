@@ -8,7 +8,7 @@ class RestAPI(http.Controller):
 
     @http.route([
         '/api/user/get_token',
-    ], auth="public", website=True, methods=['GET'])
+    ], auth="public", website=True, methods=['GET'], cors="*")
     def get_token(self, **post):
         """
             Odoo requires users of the API to be authenticated before they can use any other API.
