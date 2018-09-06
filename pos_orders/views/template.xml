@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<openerp>
+    <data>
+        <template id="indexs" inherit_id='point_of_sale.index' name="POS Header">
+            <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                <link rel="stylesheet" href="/pos_orders/static/src/css/pos_orders.css" />
+            </xpath>
+        </template>
+        <template id="assets_backends_js1" name="pos_orders assests" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+               <script type="text/javascript" src="/pos_orders/static/src/js/pos_orders.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

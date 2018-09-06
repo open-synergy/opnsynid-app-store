@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+    
+    <t t-extend="PosWidget">
+        <t t-jquery='div.pads' t-operation='before'>
+            <div id='view_all_orders' class='control-button' style="width:41%;margin-top:2%;margin-bottom:1%;font-size: initial;">
+                <i class="fa fa-copy"/>All Orders
+            </div>
+        </t>
+    </t>    
+
+    <!-- <t t-extend="Orderline">
+        <t t-jquery='ul.info-list' t-operation='after'>
+            <t t-if="line.get_product().not_returnable">
+                <span style="color:#888;font-size:10px;float:right;margin-top: -5px;">Not Returnable</span>
+            </t>
+        </t>
+    </t> -->
+
+    <t t-name="OrderListScreenWidget">
+        <div class="clientlist-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        Cancel
+                    </span>
+                <span class="searchbox">
+                    <input placeholder="Search Orders" class="order_search"/>
+                    <span class="search-clear"></span>
+                </span>
+				</section>
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow collapsed'>
+                            <div class='wk_subwindow-container collapsed'>
+                                <div class='subwindow-container-fix order-details-contents'>
+                                </div>
+                            </div>
+                        </section>
+                        <section class='subwindow'>
+                            <div class='wk_table_back subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y' style="background-color: rgb(240, 238, 238);overflow-y: scroll;">
+                                    <table class='client-list wk_order_table wk_order_list'>
+                                        <thead>
+                                            <tr style="background-color: rgb(135, 160, 166);color: white;">
+                                                <th>Order Ref.</th>
+                                                <th>Receipt Ref.</th>
+                                                <th>Customer</th>
+                                                <th>Order Date</th>                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody class='order-list-contents'>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="WkOrderLine">
+        <tr class="order-line" t-att-data-id='order_list.id'>
+            <td><t t-esc='order_list.name' /></td>
+            <td><t t-esc='order_list.pos_reference' /></td>
+            <td><t t-esc='order_list.partner_id[1] or "-"' /></td>
+            <td><t t-esc='order_list.date_order' /></td>
+        </tr>
+    </t>
+
+   <t t-extend='ClientListScreenWidget'>
+        <t t-jquery='.client-list thead tr' t-operation='append'>
+            <th>Orders</th>
+        </t>
+    </t>
+
+    <t t-extend='ClientLine'>
+        <t t-jquery='.client-line' t-operation='append'>
+            <td>
+                <button class="view_all_order" t-att-id='partner.id'><i class="fa fa-filter"></i> View orders</button>
+            </td>
+        </t>
+    </t>    
+
+</templates>
+
+    

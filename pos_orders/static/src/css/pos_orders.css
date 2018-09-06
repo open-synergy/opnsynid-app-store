@@ -1,0 +1,36 @@
+/* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
+/* See LICENSE file for full copyright and licensing details. */
+/* License URL : <https://store.webkul.com/license.html/> */
+.wk_table_body{    
+    margin-top: 65px;
+    overflow: scroll;
+    height: 83%;
+   
+}
+.wk_order_table{
+	background: white;
+	font-size: 16px;
+	width: 100%;	
+	line-height: 40px;
+}
+.highlight{
+    background: none repeat scroll 0% 0% #E6E6E6;
+}	
+
+.wk_order_table tr:nth-child(odd){ 
+	background: #E6E6E6;
+}
+
+.wk_order_table tr:nth-child(even){
+	background: white;
+}
+
+
+.wk_table_header {
+  background: #b3cccc !important;	
+}
+
+.wk_order_table th, td {
+    padding-left: 15px;
+    text-align: left;
+}
