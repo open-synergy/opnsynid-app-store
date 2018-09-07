@@ -28,10 +28,10 @@
     "version": '1.0',
     "depends": ['point_of_sale'],
     "data": [
+        "security/ir.model.access.csv",
         'views/templates.xml',
         'views/pos_discount_view.xml',
-        'data/product.xml',
-        # 'security/ir.model.access.csv',
+        'data/product.xml'
     ],
     # "images":['static/description/order_list.png'],
     'qweb': [
