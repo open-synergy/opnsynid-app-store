@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="wk_coupons.product_product_coupon" model="product.product">
+           <field name="available_in_pos">True</field>
+        </record>
+    </data>
+</openerp>

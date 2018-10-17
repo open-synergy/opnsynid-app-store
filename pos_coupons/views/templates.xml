@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <template id="index" inherit_id='point_of_sale.index' name="POS Header">
+            <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                <link rel="stylesheet" href="/pos_coupons/static/src/css/pos_coupon.css" />
+            </xpath>
+        </template>
+        <template id="wk_assets_pos_coupon" inherit_id="web.assets_common">
+          <xpath expr="." position="inside">
+              
+              <script type="text/javascript" src="/pos_coupons/static/src/js/pos_coupon.js"></script>
+          </xpath>
+        </template>
+     </data>
+</openerp>
