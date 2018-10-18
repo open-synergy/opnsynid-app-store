@@ -17,3 +17,9 @@ phases:
             - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
             - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
             - travis_install_nightly
+    build:
+        commands:
+            - travis_run_tests
+    post_build:
+        commands:
+            - travis_after_tests_success
