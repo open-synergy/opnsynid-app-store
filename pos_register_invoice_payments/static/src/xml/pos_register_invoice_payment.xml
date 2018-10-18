@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+
+	<t t-extend="InvoiceDetails">
+		<t t-jquery="#close_invoice_details" t-operation="after">
+			<div class='control-button wk_register_payment'>Payments</div>
+		</t>
+	</t>
+
+	<t t-name="RegisterPaymentPopup">
+			<div class="modal-dialog">
+			<div class="wk_register_payment_popup" style="padding:10px;overflow:hidden;margin-top:-41px;">
+                <div style="overflow:hideen">
+                    <div class="wk_title">
+                        <t t-if="widget.options and widget.options.invoice">      
+                            <h1 style="color:#37b47b"><b><t t-esc="widget.options.invoice.number"/></b></h1>
+							<h3 class="wk_residual_amount" style="color:#37b47b">
+								Amount Due : <t t-esc="widget.format_currency(widget.options.invoice.residual)"/>
+							</h3>
+                        </t>
+                    </div>
+                    <div class="body">
+							<div class="tab-content">
+								<t t-if="widget.options">
+									<table class="payment_tab">
+											<tr>
+												<td class="credit_line_id">Payment Amount</td>
+												<td>
+													<input t-att-value='widget.options.invoice ? widget.options.invoice.residual:""' class="payment_amount" type="number"/>
+												</td>
+
+												<td class="credit_line_id">Memo</td>
+												<td>
+													<t t-if="widget.options.invoice">
+														<input t-att-value='widget.options.invoice.name != false ? widget.options.invoice.name:""' class="payment_memo"/>
+													</t>
+												</td>
+											</tr>
+											<tr>
+												<td class="credit_line_id">Payment Journal</td>
+												<td>	
+													<select class='wk_payment_journal' name='journal_id'>
+														<option value=''>None</option>
+														<t t-foreach='widget.pos.cashregisters' t-as='cashregister'>
+															<option t-att-selected="cashregister.journal_id? cashregister.journal_id[0] : undefined" t-att-value='cashregister.journal_id[0]'> 
+																<t t-esc='cashregister.journal_id[1]'/>
+															</option>
+														</t>
+													</select>
+												</td>
+												<td class="credit_line_id">Reference</td>
+												<td>
+													<input class="payment_reference"/>
+												</td>
+											</tr>
+									</table>
+								</t>
+							</div>	
+                    </div>
+                    <div style="float:right">
+                        <button class="button cancel_credit_line" >Cancel</button>
+                        <button class="button register_payment" >Validate</button>						
+                    </div>
+                </div>
+			</div>
+		</div>
+	</t>
+
+	<!-- <t t-name="WkPaymentWidgetline">
+		<tr>
+			<td class="credit_line_id" ><t t-esc="content.name"/></td>
+			<td class="credit_line_id"><t t-esc="content.date"/></td>
+			<td class="credit_line_id"><t t-esc="content.journal_name"/></td>
+			<td class="credit_line_id" ><t t-esc="content.ref"/></td>
+			<td class="credit_line_id"><t t-esc="widget.format_currency(content.amount)"/></td>
+			<td class="credit_line_id">
+				<button class='reconsile_line' t-att-id='content.payment_id'>Unreconciled</button>
+			</td>
+		</tr>
+	</t>
+
+	<t t-name="WkOutstandingCreditline">
+		<tr>
+			<td class="credit_line_id" ><t t-esc="content.journal_name"/></td>
+			<td class="credit_line_id"><t t-esc="widget.format_currency(content.amount)"/></td>
+			<td class="credit_line_id">
+				<button class='outstanding_credit_line' t-att-id='content.id'>Add</button>
+			</td>
+		</tr>
+	</t> -->
+
+</templates>

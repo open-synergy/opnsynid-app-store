@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="indexs" inherit_id='point_of_sale.index' name="POS Invouce Details Style">
+			<xpath expr="//link[@id='pos-stylesheet']" position="after">
+				<link rel="stylesheet" href="/pos_register_invoice_payments/static/src/css/main.css" />
+			</xpath>
+		</template>
+		<template id="assets_backend" inherit_id="point_of_sale.assets_backend">
+			<xpath expr="." position="inside">
+				<script type="text/javascript" src="/pos_register_invoice_payments/static/src/js/main.js"></script>
+			</xpath>
+		</template>
+	</data>
+</openerp>
