@@ -10,5 +10,5 @@ phases:
     install:
         commands:
             - sudo apt-get update
-            - sudo apt-get upgrade
-            - sudo apt-get install expect-dev python-lxml python-simplejson python-serial python-yaml
+            - sudo apt-get -y upgrade
+            - sudo apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
