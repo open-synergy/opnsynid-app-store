@@ -6,6 +6,7 @@ env:
         TESTS: "1"
         LINT_CHECK: "0"
         TRANSIFEX: "0"
+        TRAVIS_BUILD_DIR: "${HOME}/travis/build"
 phases:
     install:
         commands:
