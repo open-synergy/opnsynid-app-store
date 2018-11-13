@@ -253,15 +253,16 @@
 
 
     <t t-name="CouponXmlReceipt">
-        <receipt align='center' width='40' value-thousands-separator='' >
-            <t t-if='receipt.company.logo'>
+        <receipt align='center' width='40' value-thousands-separator='.' value-decimals-separator=','>
+            <!-- <t t-if='receipt.company.logo'>
                 <img t-att-src='receipt.company.logo' />
             </t>
             <t t-if='receipt.company.logo'>
                 <h2><t t-esc='receipt.company.name' /></h2>
                 <br/>
-            </t>
-            <br />
+            </t> -->
+            <h2><t t-esc='receipt.company.name' /></h2>
+            <br/>
             <div>
                 <div>COUPON:</div>
             </div>
@@ -271,17 +272,36 @@
             </div>
             <br/>
             <div>
-                <div>Validaty:</div>
+                <div>VALIDITY:</div>
             </div>
             <div>-----------------------</div>
-            <line>
+            <!-- <line>
                 <left>From: <t t-esc='receipt.coupon.issue_date' /></left>
                 <right>To: <t t-esc='receipt.coupon.expiry_date' /></right>
-            </line>
-            <br/>
+            </line> -->
             <div>
-                <div>Coupon Value: <t t-esc='receipt.coupon.coupon_value' /></div>
+                <div>From: <t t-esc='receipt.coupon.issue_date' /></div>
+                <div>To: <t t-esc='receipt.coupon.expiry_date' /></div>
             </div>
+            <br/>
+            <!-- <div>
+                <div>
+                    <value>
+                        Coupon Value: <t t-esc='receipt.coupon.coupon_value' />
+                    </value>
+                </div>
+            </div> -->
+            <div>
+                <div>COUPON VALUE:</div>
+            </div>
+            <div>-----------------------</div>
+            <div bold='on' size='double'>
+                <div><value><t t-esc='receipt.coupon.coupon_value' /></value></div>
+            </div>
+            <!-- <line>
+                <left>Coupon Value:</left>
+                <right><value><t t-esc='receipt.coupon.coupon_value' /></value></right>
+            </line> -->
             <barcode encoding='ean13' ><t t-esc='receipt.coupon.coupon_code' /></barcode>
             <br/>
             <br/>
@@ -294,7 +314,8 @@
             </t>
             <br/>
             <div font='b'>
-                <div><t t-esc='receipt.date.localestring' /></div>
+                <!-- <div><t t-esc='receipt.date.localestring' /></div> -->
+                <div><t t-esc='receipt.coupon.printed_date' /></div>
             </div>
 
         </receipt>

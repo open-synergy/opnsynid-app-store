@@ -25,7 +25,7 @@ var CreateConfurmPopupWidget = module.PopUpWidget.extend({
             var currentOrder = self.pos.get('selectedOrder');
             this.$('#print-coupons').off('click').click(function(){
                 if (self.pos.config.iface_print_via_proxy){
-                    (new instance.web.Model('voucher.voucher')).call('get_coupon_data',[{'coupon_id':wk_obj.wk_id}])  
+                    (new instance.web.Model('voucher.voucher')).call('get_coupon_data',[wk_obj.wk_id])  
                         .then(function (result) {
                             var receipt = currentOrder.export_for_printing();
                             receipt['coupon'] = result;

@@ -41,15 +41,26 @@ class VoucherVoucher(models.Model):
 			vals['voucher_val_type'] = vals['amount_type']
 		return self.create(vals).id
 
+	@api.multi
+	def _format_date(self, dt):
+		if dt:
+			convert_dt = datetime.strptime(dt, "%Y-%m-%d")
+			format_dt = convert_dt.strftime("%d-%B-%Y")
+			return format_dt
+		else:
+			return "-"
+
 	@api.model
 	def get_coupon_data(self , coupon_id=False):
-		coupon = self.sudo().browse(int(coupon_id))
+		coupon = self.sudo().browse(coupon_id)
+		printed_date = datetime.now()
 		return {
 			'name': coupon.name,
 			'coupon_code': coupon.voucher_code,
-			'issue_date': coupon.issue_date,
-			'expiry_date': coupon.issue_date,
+			'issue_date': self._format_date(coupon.issue_date),
+			'expiry_date': self._format_date(coupon.expiry_date),
 			'coupon_value': coupon.voucher_value,
+			"printed_date": printed_date.strftime("%d-%B-%Y, %H:%M:%S")
 		}
 
 	@api.model
