@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
-#################################################################################
-#
-#    Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>)
-#
-#################################################################################
+######################################################
+# Copyright (c) 2016-Present Webkul Software Pvt. Ltd.
+# (<https://webkul.com/>)
+######################################################
 {
     "name": "Pos Coupons And Vouchers",
-    "category": 'Point of sale',
+    "category": "Point of sale",
     "summary": """
         Add an option in existing Point Of Sale to Create and Use Coupons/Vouchers on Current Order.""",
     "description": """
-
 ====================
 **Help and Support**
 ====================
@@ -23,26 +21,26 @@
     "sequence": 1,
     "author": "Webkul Software Pvt. Ltd.",
     "website": "http://www.webkul.com",
-    "version": '2.0',
-    "depends": ['wk_coupons','point_of_sale'],
+    "version": "2.0",
+    "depends": [
+        "wk_coupons",
+        "point_of_sale"
+    ],
     "data": [
-       
-        'views/inherited_voucher_history_view.xml',
-        'views/pos_coupons_view.xml',
-        'views/templates.xml',
+        "views/inherited_voucher_history_view.xml",
+        "views/pos_coupons_view.xml",
+        "views/templates.xml",
     ],
-    'depends': [
-        'point_of_sale',
-        'wk_coupons',
-    ],
-     'qweb': [
-        'static/src/xml/*.xml',
+    "qweb": [
+        "static/src/xml/*.xml",
     ],
     "installable": True,
     "application": True,
     "auto_install": False,
     "price": 125,
-    "currency": 'EUR',
-    "images":['static/description/Banner.png'],
-    'pre_init_hook': 'pre_init_check',
+    "currency": "EUR",
+    "images":[
+        "static/description/Banner.png"
+    ],
+    "pre_init_hook": "pre_init_check",
 }

@@ -6,10 +6,12 @@
                 <link rel="stylesheet" href="/pos_coupons/static/src/css/pos_coupon.css" />
             </xpath>
         </template>
+
         <template id="wk_assets_pos_coupon" inherit_id="web.assets_common">
           <xpath expr="." position="inside">
-              
-              <script type="text/javascript" src="/pos_coupons/static/src/js/pos_coupon.js"></script>
+              <script type="text/javascript" src="/pos_coupons/static/src/js/main.js"></script>
+              <script type="text/javascript" src="/pos_coupons/static/src/js/models.js"></script>
+              <script type="text/javascript" src="/pos_coupons/static/src/js/widget.js"></script>
           </xpath>
         </template>
      </data>
