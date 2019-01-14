@@ -267,7 +267,7 @@
                 <div>COUPON:</div>
             </div>
             <div>-----------------------</div>
-            <div font='b'>
+            <div>
                 <div><t t-esc='receipt.coupon.name' /></div>
             </div>
             <br/>
@@ -296,15 +296,15 @@
             </div>
             <div>-----------------------</div>
             <div bold='on' size='double'>
-                <div><value><t t-esc='receipt.coupon.coupon_value' /></value></div>
+                <div><t t-esc='receipt.coupon.coupon_code' /></div>
             </div>
             <!-- <line>
                 <left>Coupon Value:</left>
                 <right><value><t t-esc='receipt.coupon.coupon_value' /></value></right>
             </line> -->
-            <barcode encoding='ean13' ><t t-esc='receipt.coupon.coupon_code' /></barcode>
+            <!-- <barcode encoding='ean13' ><t t-esc='receipt.coupon.coupon_code' /></barcode>
             <br/>
-            <br/>
+            <br/> -->
             <!-- Footer -->
             <t t-if='receipt.footer'>
                 <br/>

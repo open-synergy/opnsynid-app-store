@@ -6,7 +6,9 @@
 from openerp import api, fields, models, _
 from openerp import tools
 from datetime import datetime, timedelta
+import pytz
 import logging
+from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 _logger = logging.getLogger(__name__)
 
 
@@ -50,17 +52,41 @@ class VoucherVoucher(models.Model):
         else:
             return "-"
 
+    def _convert_datetime_from_utc(self, dt):
+        obj_user = self.env['res.users']
+        user = obj_user.browse(self.env.user.id)
+        convert_dt = datetime.strptime(
+            dt, "%Y-%m-%d, %H:%M:%S")
+
+        if user.tz:
+            tz = pytz.timezone(user.tz)
+        else:
+            tz = pytz.utc
+
+        convert_utc =\
+            pytz.utc.localize(
+                convert_dt).astimezone(tz)
+        format_utc =\
+            convert_utc.strftime("%d-%B-%Y, %H:%M:%S")
+
+        return format_utc
+
     @api.model
     def get_coupon_data(self , coupon_id=False):
         coupon = self.sudo().browse(coupon_id)
         printed_date = datetime.now()
+        convert_printed_date =\
+            datetime.strftime(
+                printed_date,
+                "%Y-%m-%d, %H:%M:%S"
+            )
         return {
             "name": coupon.name,
             "coupon_code": coupon.voucher_code,
             "issue_date": self._format_date(coupon.issue_date),
             "expiry_date": self._format_date(coupon.expiry_date),
             "coupon_value": coupon.voucher_value,
-            "printed_date": printed_date.strftime("%d-%B-%Y, %H:%M:%S")
+            "printed_date": self._convert_datetime_from_utc(convert_printed_date)
         }
 
     @api.model

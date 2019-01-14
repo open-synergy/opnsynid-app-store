@@ -88,6 +88,7 @@ function pos_coupons_widget(instance, module){
                             });
                             self.pos.proxy.print_receipt(t);
                         });
+                    self.pos_widget.screen_selector.close_popup();
                 }else{
                     (new instance.web.Model('voucher.voucher')).call('wk_print_report')
                     .then(function (result) {
