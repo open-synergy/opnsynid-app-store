@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="UserMenu">
+        <t t-jquery="li > ul > li:nth-child(1)" t-operation="after">
+            <li><a href="#" data-menu="preview">Report preview</a></li>
+        </t>
+    </t>
+
+</templates>
