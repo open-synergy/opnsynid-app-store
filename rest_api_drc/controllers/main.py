@@ -27,7 +27,7 @@ class RestAPI(http.Controller):
         else:
             res['error'] = "Wrong login/password"
         return json.dumps(res)
-    
+
     @http.route([
         '/api/user/delete_token',
     ], auth="public", website=True, methods=['GET'], cors="*")
@@ -44,9 +44,9 @@ class RestAPI(http.Controller):
                 current_user.token=False
             except Exception as e:
                 return json.dumps({'error': _(' %s' % e)})
-            
+
         return json.dumps({'success': _('Token \'%s\' Deleted Successfully' % post.get('token'))})
-    
+
     @http.route([
         '/api/user/refresh_token',
     ], auth="public", website=True, methods=['GET'], cors="*")
@@ -54,7 +54,7 @@ class RestAPI(http.Controller):
         """
             Refresh token : it is medetory to pass token after this call token will return new token.
             eg.localhost:8069/api/user/refresh_token?token=24e635ff9cc74429bed3d420243f5aa6
-            
+
             It return {"token": "6656a5ba22ca440ca53fd40caeea38eb"}
         """
         current_user = request.env['res.users'].sudo().search([('token', '=', post.get('token'))])
@@ -68,7 +68,7 @@ class RestAPI(http.Controller):
                 return json.dumps({'token': token})
             except Exception as e:
                 return json.dumps({'error': _(' %s' % e)})
-                
+
     @http.route(['/api/<string:model>/search', '/api/<string:model>/search/<int:id>'
     ], type='http', auth="public", cors="*")
     def search_data(self, model=None, id=None, **post):
@@ -111,16 +111,16 @@ class RestAPI(http.Controller):
                     fields = eval(post.get('fields'))
             result = Model.search_read(domain, fields=fields, offset=int(post.get('offset', 0)), limit=post.get('limit') and int(post['limit'] or None))
         return json.dumps(result)
-    
-    
+
+
     @http.route(['/api/<string:model>/create'
                  ], type='http', auth="public", csrf=False, cors="*")
     def create_data(self, model=None, **post):
         """
             create record , it is medetory to pass model name
-            and values for record creation pass as create_vals of JOSN/Dictionary format.  
+            and values for record creation pass as create_vals of JOSN/Dictionary format.
             eg.
-            QueryString: 
+            QueryString:
                 localhost:8069/api/product.product/create?token=24e635ff9cc74429bed3d420243f5aa6&create_vals={'name':'Apple'}
             Return:
                 If record is successfully created then it will return record id eg. {'id':101}
@@ -136,7 +136,8 @@ class RestAPI(http.Controller):
             if post.get('create_vals'):
                 create_vals=eval(post.get('create_vals'))
                 try:
-                    record=Model.create(create_vals)
+                    with request.env.cr.savepoint():
+                        record=Model.create(create_vals)
                 except Exception as e:
                     return json.dumps({'error': _(' %s' % e)})
                 if record:
@@ -144,15 +145,15 @@ class RestAPI(http.Controller):
                     return json.dumps(res)
             else:
                 return json.dumps({'error': _('create_vals not found in query string')})
-    
+
     @http.route(['/api/<string:model>/update','/api/<string:model>/update/<int:id>'
                  ], type='http', auth="public", csrf=False, cors="*")
     def update_data(self, model=None, id=None, **post):
         """
             update record , it is medetory to pass model name and record id
-            and values for record update pass as update_vals in JOSN/Dictionary format.  
+            and values for record update pass as update_vals in JOSN/Dictionary format.
             eg.
-            QueryString: 
+            QueryString:
                 localhost:8069/api/product.product/update/101?token=24e635ff9cc74429bed3d420243f5aa6&update_vals={'name':'Mango'}
             Return:
                 If record is successfully updated then it will return {'success':'Record Updated Successfully'}
@@ -179,24 +180,24 @@ class RestAPI(http.Controller):
                     return json.dumps({'error': _('update_vals not fount in query string')})
             else:
                 return json.dumps({'error': _('id not fount in query string')})
-    
+
     @http.route(['/api/<string:model>/unlink/','/api/<string:model>/unlink/<int:id>'
                  ], type='http', auth="public", csrf=False, cors="*")
     def unlink_data(self, model=None, id=None, **post):
         """
-            Delete record , it is medetory to pass model name and record id 
-            For Delete multiple records pass record ids in url parameter as 'unlink_ids' as in list format.   
+            Delete record , it is medetory to pass model name and record id
+            For Delete multiple records pass record ids in url parameter as 'unlink_ids' as in list format.
             eg.
-            QueryString for Delete single record: 
+            QueryString for Delete single record:
                 localhost:8069/api/product.product/unlink/59?token=24e635ff9cc74429bed3d420243f5aa6
             Return:
                 If record is successfully deleted then it will return {'success':'Records Successfully Deleted 59'}
-            
-            QueryString for Delete multiple records: 
+
+            QueryString for Delete multiple records:
                 localhost:8069/api/product.product/unlink/?token=24e635ff9cc74429bed3d420243f5aa6&unlink_ids=[60,61]
             Return:
                 If record is successfully deleted then it will return {'success':'Records Successfully Deleted [60,61]'}
-                
+
         """
         current_user = request.env['res.users'].sudo().search([('token', '=', post.get('token'))])
         if not current_user:
@@ -219,34 +220,34 @@ class RestAPI(http.Controller):
                         return json.dumps({'success': _('Records Successfully Deleted %s' %post['unlink_ids'])})
                 except Exception as e:
                         return json.dumps({'error': _(' %s' % e)})
-    
+
     @http.route(['/api/<string:model>/<int:id>/method/<string:method_name>'
                  ], type='http', auth="public", cors="*")
     def method_call(self, model=None,id=None, method_name=None, **post):
         """
             For calling a method of any model , it is medetory to pass model name, record id and method name
-            method call based on odoo8 api standards. 
-            so no need to pass cr,uid,ids,context as method argument. Other then this argument pass as 'args'=[arg1,arg2] in query string 
+            method call based on odoo8 api standards.
+            so no need to pass cr,uid,ids,context as method argument. Other then this argument pass as 'args'=[arg1,arg2] in query string
             eg.
             QueryString for calling a method without argument:
                 localhost:8069/api/sale.order/26/method/action_button_confirm/?token=1ec448c54a004165b4c0da976b227260
             Return:
                 {"success": "True"}
                 It will return dictionary its key 'success' and  and its value will be return as per method calling
-            
+
             QueryString for calling method with arguments:
-                'def get_salenote(self, cr, uid, ids, partner_id, context=None)' 
+                'def get_salenote(self, cr, uid, ids, partner_id, context=None)'
                 this method if of sale order for calling this method we need to pass partner_id in args
-                
+
                 localhost:8069/api/sale.order/35/method/get_salenote/?token=1ec448c54a004165b4c0da976b227260&args=[3]
-                
+
             Return:
                 {"success": "sale note"}
-            
+
             QueryString for calling method with keyword argument
                 localhost:8069/api/sale.order/33/method/action_invoice_create/?token=1ec448c54a004165b4c0da976b227260&kwargs={'date_invoice':'2016-09-02'}
             It will return
-                {"success": "12"}        
+                {"success": "12"}
         """
         current_user = request.env['res.users'].sudo().search([('token', '=', post.get('token'))])
         if not current_user:
@@ -267,4 +268,4 @@ class RestAPI(http.Controller):
                 result= getattr(record,method_name)(*args,**kwargs)
                 return json.dumps({'success': _('%s' % result)})
             except Exception as e:
-                return json.dumps({'error': _('%s' % e)})    
+                return json.dumps({'error': _('%s' % e)})
