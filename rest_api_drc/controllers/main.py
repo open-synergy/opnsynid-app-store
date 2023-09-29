@@ -2,6 +2,7 @@
 import json
 from openerp import http, _
 from openerp.http import request
+import base64
 
 
 class RestAPI(http.Controller):
@@ -269,3 +270,62 @@ class RestAPI(http.Controller):
                 return json.dumps({'success': _('%s' % result)})
             except Exception as e:
                 return json.dumps({'error': _('%s' % e)})
+
+    @http.route(['/api/attachment/create'
+                 ], type='http', auth="public", csrf=False, cors="*")
+    def create_attachment(self, **post):
+        current_user = request.env['res.users'].sudo().search([('token', '=', post.get('token'))])
+        if not current_user:
+            return json.dumps({'error': _('Invalid User Token')})
+
+        Model = request.env["ir.attachment"].sudo(current_user.id)
+
+        if post.get('create_vals'):
+            create_vals=eval(post.get('create_vals'))
+            if post.get("file"):
+                files = post.get("file")
+                datas = base64.b64encode(files.read())
+                create_vals["datas"] = datas
+            else:
+                return json.dumps({'error': _('file not found')})
+
+            try:
+                with request.env.cr.savepoint():
+                    record=Model.create(create_vals)
+            except Exception as e:
+                return json.dumps({'error': _(' %s' % e)})
+            if record:
+                res={'id':record.id}
+                return json.dumps(res)
+        else:
+            return json.dumps({'error': _('create_vals not found in query string')})
+
+    @http.route(['/api/attachment/update','/api/attachment/update/<int:id>'
+                 ], type='http', auth="public", csrf=False, cors="*")
+    def update_attachment(self, id=None, **post):
+        current_user = request.env['res.users'].sudo().search([('token', '=', post.get('token'))])
+        if not current_user:
+            return json.dumps({'error': _('Invalid User Token')})
+
+        Model = request.env["ir.attachment"].sudo(current_user.id)
+
+        if id:
+            if post.get('update_vals'):
+                update_vals=eval(post.get('update_vals'))
+                if post.get("file"):
+                    files = post.get("file")
+                    datas = base64.b64encode(files.read())
+                    update_vals["datas"] = datas
+                else:
+                    return json.dumps({'error': _('file not found')})
+                try:
+                    record=Model.browse(id)
+                    result=record.write(update_vals)
+                    if result:
+                        return json.dumps({'success': _('Record Updated Successfully')})
+                except Exception as e:
+                    return json.dumps({'error': _(' %s' % e)})
+            else:
+                return json.dumps({'error': _('update_vals not found in query string')})
+        else:
+            return json.dumps({'error': _('id not fount in query string')})
